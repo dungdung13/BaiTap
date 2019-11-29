@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, TextInput, TouchableOpacity, View, StyleSheet, SafeAreaView } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { NavigationScreenProp, NavigationState } from "react-navigation";
 
 export class ADM001 extends Component<{ navigation: NavigationScreenProp<NavigationState> }> {

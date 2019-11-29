@@ -1,11 +1,8 @@
-import { View } from "react-native";
 import React, { Component } from 'react';
+import { View } from "react-native";
+import { connect } from 'react-redux';
 
-
-export default class HiddenView extends Component<{ isVisible: boolean, child: any }, any> {
-    constructor(props: { isVisible: boolean, child: any }) {
-        super(props);
-    }
+export class HiddenView extends Component<{ isVisible: boolean, child: any }, any> {
     render() {
         if (!this.props.isVisible) {
             return null
@@ -18,3 +15,10 @@ export default class HiddenView extends Component<{ isVisible: boolean, child: a
         }
     }
 }
+
+const mapStateToProps = (state: { toggleVisibility: boolean }) => {
+    return { isVisible: state.toggleVisibility }
+}
+
+
+export default connect(mapStateToProps)(HiddenView);

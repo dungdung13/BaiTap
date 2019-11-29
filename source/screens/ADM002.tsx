@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { NavigationScreenProp, NavigationState, FlatList } from "react-navigation";
-import { Text, View, TextInput, Button, Alert, TouchableOpacity, SafeAreaView } from 'react-native';
-import { BaseButton } from 'react-native-gesture-handler';
-import { SearchBar } from 'react-native-elements';
-import { Icon } from 'react-native-elements'
+import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
+import { Icon, SearchBar } from 'react-native-elements';
+import { FlatList, NavigationScreenProp, NavigationState } from "react-navigation";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { toogleDetailVisibility } from '../redux/actions';
 import HiddenView from '../ultilities/HiddenView';
 
 export class ADM002 extends Component<{ navigation: NavigationScreenProp<NavigationState> }, { searchKey: string }> {
@@ -26,8 +27,7 @@ export class ADM002 extends Component<{ navigation: NavigationScreenProp<Navigat
                 <FlatList
                     data={dataObj}
                     keyExtractor={item => item.user_id.toString()}
-                    renderItem={({ item }) => <UserItem user={item} />}
-                />
+                    renderItem={({ item }) => <UserItemConnector user={item} />} />
             </SafeAreaView>
         );
     }
@@ -49,8 +49,12 @@ class UserDetail extends Component<{ title: string, content: string }>{
     }
 }
 
-class UserItem extends Component<any, { isShowDeltail: boolean }>{
-    constructor(props: any) {
+interface ADM002Props {
+    dispatch: Function
+    user: { user_id: string, full_name: string, birthday: string, email: string, tel: string }
+}
+class UserItem extends Component<ADM002Props, { isShowDeltail: boolean }>{
+    constructor(props: ADM002Props) {
         super(props);
         this.state = {
             isShowDeltail: false
@@ -67,12 +71,15 @@ class UserItem extends Component<any, { isShowDeltail: boolean }>{
                     </View>
                     <Text style={{ flex: 3 }}>{user.full_name}</Text>
                     <Text style={{ flex: 3 }}>{user.birthday}</Text>
-                    <TouchableOpacity style={{ flex: 1 }} onPress={() => this.setState({ isShowDeltail: !this.state.isShowDeltail })}>
+                    <TouchableOpacity style={{ flex: 1 }}
+                        onPress={() => {
+                            this.setState({ isShowDeltail: !this.state.isShowDeltail })
+                            this.props.dispatch(toogleDetailVisibility(this.state.isShowDeltail))
+                        }}>
                         {this.state.isShowDeltail ? <Icon name='ios-arrow-dropup' type='ionicon' color='rebeccapurple' /> : <Icon name='ios-arrow-dropdown' type='ionicon' color='rebeccapurple' />}
                     </TouchableOpacity>
                 </View>
                 <HiddenView
-                    isVisible={this.state.isShowDeltail}
                     child={
                         <View>
                             <UserDetail title='email' content={user.email} />
@@ -83,6 +90,14 @@ class UserItem extends Component<any, { isShowDeltail: boolean }>{
         );
     }
 }
+
+//const mapDispatchToProps = (dispatch: any) => (
+//   bindActionCreators({
+//       toogleDetailVisibility,
+//    }, dispatch)
+//);
+
+const UserItemConnector = connect()(UserItem);
 
 const dataObj = [
     { user_id: 1, group_id: 1, login_name: '', password: '', full_name: 'Nguyễn Thị Mai Hương', full_name_kana: '', email: 'ntmhuong@luvina.net', tel: '0914326386', birthday: '1983/07/08	', Rule: 1, Salt: '' },

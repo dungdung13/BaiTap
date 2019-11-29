@@ -91,12 +91,6 @@ class UserItem extends Component<ADM002Props, { isShowDeltail: boolean }>{
     }
 }
 
-//const mapDispatchToProps = (dispatch: any) => (
-//   bindActionCreators({
-//       toogleDetailVisibility,
-//    }, dispatch)
-//);
-
 const UserItemConnector = connect()(UserItem);
 
 const dataObj = [

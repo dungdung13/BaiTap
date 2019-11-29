@@ -16,7 +16,6 @@ import { createStore } from 'redux';
 import myAppReducer from './source/redux/reducers';
 import { ADM001 } from './source/screens/ADM001';
 import { ADM002 } from './source/screens/ADM002';
-import { View } from 'react-native';
 
 const App = () => {
   return (

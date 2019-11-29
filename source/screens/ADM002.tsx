@@ -26,7 +26,7 @@ export class ADM002 extends Component<{ navigation: NavigationScreenProp<Navigat
                 <FlatList
                     data={dataObj}
                     keyExtractor={item => item.user_id.toString()}
-                    renderItem={({ item }) => <UserItemConnector user={item} />} />
+                    renderItem={({ item }) => <UserItem user={item} />} />
             </SafeAreaView>
         );
     }
@@ -48,12 +48,13 @@ class UserDetail extends Component<{ title: string, content: string }>{
     }
 }
 
-interface ADM002Props {
-    dispatch: Function
-    user: { user_id: string, full_name: string, birthday: string, email: string, tel: string }
-}
-class UserItem extends Component<ADM002Props, { isShowDeltail: boolean }>{
-    constructor(props: ADM002Props) {
+// interface ADM002Props {
+//     dispatch: Function
+//     user: { user_id: string, full_name: string, birthday: string, email: string, tel: string }
+// }
+
+class UserItem extends Component<any, { isShowDeltail: boolean }>{
+    constructor(props: any) {
         super(props);
         this.state = {
             isShowDeltail: false
@@ -73,12 +74,12 @@ class UserItem extends Component<ADM002Props, { isShowDeltail: boolean }>{
                     <TouchableOpacity style={{ flex: 1 }}
                         onPress={() => {
                             this.setState({ isShowDeltail: !this.state.isShowDeltail })
-                            this.props.dispatch(toogleDetailVisibility(this.state.isShowDeltail))
                         }}>
                         {this.state.isShowDeltail ? <Icon name='ios-arrow-dropup' type='ionicon' color='rebeccapurple' /> : <Icon name='ios-arrow-dropdown' type='ionicon' color='rebeccapurple' />}
                     </TouchableOpacity>
                 </View>
                 <HiddenView
+                    isVisible={this.state.isShowDeltail}
                     child={
                         <View>
                             <UserDetail title='email' content={user.email} />
@@ -90,7 +91,7 @@ class UserItem extends Component<ADM002Props, { isShowDeltail: boolean }>{
     }
 }
 
-const UserItemConnector = connect()(UserItem);
+// const UserItemConnector = connect()(UserItem);
 
 const dataObj = [
     { user_id: 1, group_id: 1, login_name: '', password: '', full_name: 'Nguyễn Thị Mai Hương', full_name_kana: '', email: 'ntmhuong@luvina.net', tel: '0914326386', birthday: '1983/07/08	', Rule: 1, Salt: '' },

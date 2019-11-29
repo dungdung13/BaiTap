@@ -3,7 +3,6 @@ import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import { Icon, SearchBar } from 'react-native-elements';
 import { FlatList, NavigationScreenProp, NavigationState } from "react-navigation";
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { toogleDetailVisibility } from '../redux/actions';
 import HiddenView from '../ultilities/HiddenView';
 

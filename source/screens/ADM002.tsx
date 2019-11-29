@@ -2,11 +2,18 @@ import React, { Component } from 'react';
 import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import { Icon, SearchBar } from 'react-native-elements';
 import { FlatList, NavigationScreenProp, NavigationState } from "react-navigation";
-import { connect } from 'react-redux';
-import { toogleDetailVisibility } from '../redux/actions';
 import HiddenView from '../ultilities/HiddenView';
 
 export class ADM002 extends Component<{ navigation: NavigationScreenProp<NavigationState> }, { searchKey: string }> {
+    static navigationOptions = ({ navigation }: { navigation: NavigationScreenProp<NavigationState> }) => {
+        return {
+            headerRight: () => (
+                <TouchableOpacity style={{ paddingRight: 15 }} onPress={() => { navigation.navigate('ADM003') }}>
+                    <Icon name='add' />
+                </TouchableOpacity>
+            ),
+        }
+    };
     constructor(props: { navigation: NavigationScreenProp<NavigationState> }) {
         super(props);
         this.state = {
@@ -26,7 +33,11 @@ export class ADM002 extends Component<{ navigation: NavigationScreenProp<Navigat
                 <FlatList
                     data={dataObj}
                     keyExtractor={item => item.user_id.toString()}
-                    renderItem={({ item }) => <UserItem user={item} />} />
+                    renderItem={({ item }) =>
+                        <TouchableOpacity onPress={() => { this.props.navigation.navigate('ADM003') }}>
+                            <UserItem user={item} />
+                        </TouchableOpacity>
+                    } />
             </SafeAreaView>
         );
     }
@@ -43,6 +54,7 @@ class UserDetail extends Component<{ title: string, content: string }>{
                 <View style={{ flex: 1 }} />
                 <Text style={{ flex: 3 }}>{this.props.title}</Text>
                 <Text style={{ flex: 3 }}>{this.props.content}</Text>
+                <View style={{ flex: 1 }} />
             </View>
         );
     }

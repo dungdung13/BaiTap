@@ -7,6 +7,7 @@ import HiddenView from '../ultilities/HiddenView';
 export class ADM002 extends Component<{ navigation: NavigationScreenProp<NavigationState> }, { searchKey: string }> {
     static navigationOptions = ({ navigation }: { navigation: NavigationScreenProp<NavigationState> }) => {
         return {
+            title: '会員名称で会員を検索します。検索条件無しの場合は全て表示されます。',
             headerRight: () => (
                 <TouchableOpacity style={{ paddingRight: 15 }} onPress={() => { navigation.navigate('ADM003') }}>
                     <Icon name='add' />

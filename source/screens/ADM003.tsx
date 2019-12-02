@@ -7,10 +7,26 @@ export class ADM003 extends Component<{ navigation: NavigationScreenProp<Navigat
     constructor(props: { navigation: NavigationScreenProp<NavigationState> }) {
         super(props);
     }
+    state = {
+        date: new Date('2020-06-12T14:42:42'),
+        mode: 'date',
+        show: false,
+    }
     render() {
+        const { show, date, mode } = this.state;
         return (
-            <SafeAreaView>
+            <SafeAreaView style={{ padding: 5 }}>
+                <InputElement title='* アカウント名:' />
 
+                <InputElement title='* 氏名:' />
+                <InputElement title='カタカナ氏名:' />
+
+                <InputElement title='* メールアドレス:' />
+                <InputElement title='*電話番号:' />
+                <InputElement title='* パスワード:' />
+                <InputElement title='パスワード（確認）:' />               
+
+                <InputElement title='点数:' />
             </SafeAreaView>
         );
     }
@@ -22,10 +38,15 @@ class InputElement extends Component<{ title: string }> {
     }
     render() {
         return (
-            <View style={{ flexDirection: 'row' }}>
-                <Text>{this.props.title}</Text>
-                <Input placeholder='type here...' />
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <View style={{ flex: 1 }}>
+                    <Text>{this.props.title}</Text>
+                </View>
+                <View style={{ flex: 2 }}>
+                    <Input placeholder='type here...' />
+                </View>
             </View>
         );
     }
 }
+

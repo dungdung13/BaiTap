@@ -7,13 +7,7 @@ export class ADM003 extends Component<{ navigation: NavigationScreenProp<Navigat
     constructor(props: { navigation: NavigationScreenProp<NavigationState> }) {
         super(props);
     }
-    state = {
-        date: new Date('2020-06-12T14:42:42'),
-        mode: 'date',
-        show: false,
-    }
     render() {
-        const { show, date, mode } = this.state;
         return (
             <SafeAreaView style={{ padding: 5 }}>
                 <InputElement title='* アカウント名:' />

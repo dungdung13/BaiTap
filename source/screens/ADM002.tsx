@@ -81,7 +81,7 @@ class UserItem extends Component<{ user: User }, { isShowDeltail: boolean }>{
                         <Text>{user.userId}</Text>
                     </View>
                     <Text style={{ flex: 3 }}>{user.fullName}</Text>
-                    <Text style={{ flex: 3 }}>{user.birthday}</Text>
+                    <Text style={{ flex: 3 }}>{user.birthday.toString()}</Text>
                     <TouchableOpacity style={{ flex: 1 }}
                         onPress={() => {
                             this.setState({ isShowDeltail: !this.state.isShowDeltail })

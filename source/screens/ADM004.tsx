@@ -31,14 +31,14 @@ export class ADM004 extends Component<{ navigation: NavigationScreenProp<Navigat
                     <UserDetail title='メールアドレス:' content={user.email} />
                     <UserDetail title='電話番号:' content={user.tel} />
                     <Button title='日本語能力' onPress={() => { }} />
-                    <HiddenView isVisible={this.state.isShowDeltail} child={
+                    {/* <HiddenView isVisible={this.state.isShowDeltail} child={
                         <View>
                             <UserDetail title='資格:' content={user.tel} />
                             <UserDetail title='資格交付日:' content={user.tel} />
                             <UserDetail title='失効日:' content={user.tel} />
                             <UserDetail title='点数:' content={user.tel} />
                         </View>
-                    } />
+                    } /> */}
                 </ScrollView>
             </SafeAreaView>
         );

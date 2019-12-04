@@ -21,6 +21,12 @@ export class ADM002 extends Component<{ navigation: NavigationScreenProp<Navigat
             searchKey: ''
         };
     }
+    componentDidMount() {
+        this.props.navigation.addListener('didFocus', () => {
+            
+            
+        });
+    }
     render() {
         return (
             <SafeAreaView style={{ flex: 1 }}>

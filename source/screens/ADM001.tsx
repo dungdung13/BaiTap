@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { NavigationScreenProp, NavigationState } from "react-navigation";
 import HiddenView from '../ultilities/HiddenView';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export class ADM001 extends Component<{ navigation: NavigationScreenProp<NavigationState> }, { email: string, password: string, isError: boolean }> {
     constructor(props: { navigation: NavigationScreenProp<NavigationState> }) {
@@ -11,6 +12,27 @@ export class ADM001 extends Component<{ navigation: NavigationScreenProp<Navigat
             password: "",
             isError: false
         }
+    }
+    getData = async () => {
+        try {
+            const value = await AsyncStorage.getItem('@signed')
+            if (value !== null) {
+                console.debug(value);
+                this.props.navigation.navigate('ADM002')
+            }
+        } catch (e) {
+            console.debug(e);
+        }
+    }
+    storeData = async () => {
+        try {
+            await AsyncStorage.setItem('@signed', 'SignIn')
+        } catch (e) {
+            console.debug(e);
+        }
+    }
+    async componentWillMount() {
+        await this.getData()
     }
 
     validate = (): boolean => {
@@ -45,8 +67,9 @@ export class ADM001 extends Component<{ navigation: NavigationScreenProp<Navigat
                 <View style={styles.region}>
                     <View style={{ flex: 1, alignItems: 'center' }} />
                     <View style={{ flex: 1 }}>
-                        <TouchableOpacity style={styles.signInBUtton} onPress={() => {
+                        <TouchableOpacity style={styles.signInBUtton} onPress={async () => {
                             if (this.validate()) {
+                                await this.storeData()
                                 this.props.navigation.navigate('ADM002')
                             }
                         }}>

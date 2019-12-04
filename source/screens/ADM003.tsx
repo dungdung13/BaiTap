@@ -3,8 +3,14 @@ import { SafeAreaView, Text, View, Picker, Button, TouchableOpacity } from 'reac
 import { Input } from 'react-native-elements';
 import { NavigationScreenProp, NavigationState, ScrollView } from "react-navigation";
 import HiddenView from '../ultilities/HiddenView';
+import { User } from '../entities/User';
 
-export class ADM003 extends Component<{ navigation: NavigationScreenProp<NavigationState> }, { isShowDeltail: boolean }> {
+const defaultState: { isShowDeltail: boolean, user: User } = {
+    isShowDeltail: false,
+    user: { userId: 0, groupId: 0, loginName: '', password: '', fullName: '', fullNameKana: '', email: '', tel: '', birthday: new Date(), rule: 0, salt: '' }
+}
+
+export class ADM003 extends Component<{ navigation: NavigationScreenProp<NavigationState> }, { isShowDeltail: boolean, user: User }> {
     static navigationOptions = ({ navigation }: { navigation: NavigationScreenProp<NavigationState> }) => {
         return {
             title: '会員情報編集'
@@ -13,10 +19,9 @@ export class ADM003 extends Component<{ navigation: NavigationScreenProp<Navigat
 
     constructor(props: { navigation: NavigationScreenProp<NavigationState> }) {
         super(props);
-        this.state = {
-            isShowDeltail: false
-        };
+        this.state = defaultState;
     }
+
     render() {
         return (
             <SafeAreaView style={{ padding: 5 }}>
@@ -45,10 +50,10 @@ export class ADM003 extends Component<{ navigation: NavigationScreenProp<Navigat
                         } />
                     <View style={{ flexDirection: 'row' }}>
                         <View style={{ flex: 1, alignItems: 'center' }}>
-                            <Button title='確認' onPress={() => { }} />
+                            <Button title='確認' onPress={() => { this.props.navigation.navigate('ADM004', { user: this.state.user }) }} />
                         </View>
                         <View style={{ flex: 1, alignItems: 'center' }}>
-                            <Button title='戻る' onPress={() => { }} />
+                            <Button title='戻る' onPress={() => { this.props.navigation.goBack() }} />
                         </View>
                     </View>
                 </ScrollView>

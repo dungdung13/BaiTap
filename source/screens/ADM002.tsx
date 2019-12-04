@@ -3,6 +3,7 @@ import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import { Icon, SearchBar } from 'react-native-elements';
 import { FlatList, NavigationScreenProp, NavigationState } from "react-navigation";
 import HiddenView from '../ultilities/HiddenView';
+import { User } from '../entities/User';
 
 export class ADM002 extends Component<{ navigation: NavigationScreenProp<NavigationState> }, { searchKey: string }> {
     static navigationOptions = ({ navigation }: { navigation: NavigationScreenProp<NavigationState> }) => {
@@ -15,18 +16,14 @@ export class ADM002 extends Component<{ navigation: NavigationScreenProp<Navigat
             ),
         }
     };
+
     constructor(props: { navigation: NavigationScreenProp<NavigationState> }) {
         super(props);
         this.state = {
             searchKey: ''
         };
     }
-    componentDidMount() {
-        this.props.navigation.addListener('didFocus', () => {
-            
-            
-        });
-    }
+
     render() {
         return (
             <SafeAreaView style={{ flex: 1 }}>
@@ -39,7 +36,7 @@ export class ADM002 extends Component<{ navigation: NavigationScreenProp<Navigat
                 />
                 <FlatList
                     data={dataObj}
-                    keyExtractor={item => item.user_id.toString()}
+                    keyExtractor={item => item.userId.toString()}
                     renderItem={({ item }) =>
                         <TouchableOpacity onPress={() => { this.props.navigation.navigate('ADM003') }}>
                             <UserItem user={item} />
@@ -67,12 +64,7 @@ class UserDetail extends Component<{ title: string, content: string }>{
     }
 }
 
-// interface ADM002Props {
-//     dispatch: Function
-//     user: { user_id: string, full_name: string, birthday: string, email: string, tel: string }
-// }
-
-class UserItem extends Component<any, { isShowDeltail: boolean }>{
+class UserItem extends Component<{ user: User }, { isShowDeltail: boolean }>{
     constructor(props: any) {
         super(props);
         this.state = {
@@ -86,9 +78,9 @@ class UserItem extends Component<any, { isShowDeltail: boolean }>{
             <View style={{ padding: 10, margin: 10, borderColor: 'rebeccapurple', borderWidth: 1, borderRadius: 5 }}>
                 <View style={{ flexDirection: 'row', padding: 10 }}>
                     <View style={{ flex: 1 }}>
-                        <Text>{user.user_id}</Text>
+                        <Text>{user.userId}</Text>
                     </View>
-                    <Text style={{ flex: 3 }}>{user.full_name}</Text>
+                    <Text style={{ flex: 3 }}>{user.fullName}</Text>
                     <Text style={{ flex: 3 }}>{user.birthday}</Text>
                     <TouchableOpacity style={{ flex: 1 }}
                         onPress={() => {
@@ -110,20 +102,7 @@ class UserItem extends Component<any, { isShowDeltail: boolean }>{
     }
 }
 
-// const UserItemConnector = connect()(UserItem);
-
-const dataObj = [
-    { user_id: 1, group_id: 1, login_name: '', password: '', full_name: 'Nguyễn Thị Mai Hương', full_name_kana: '', email: 'ntmhuong@luvina.net', tel: '0914326386', birthday: '1983/07/08	', Rule: 1, Salt: '' },
-    { user_id: 2, group_id: 2, login_name: '', password: '', full_name: 'Lê Thị Xoa', full_name_kana: '', email: 'xoalt@luvina.net', tel: '1234567894', birthday: '1983/07/08	', Rule: 1, Salt: '' },
-    { user_id: 3, group_id: 1, login_name: '', password: '', full_name: 'Đặng Thị Hân', full_name_kana: '', email: 'handt@luvina.net', tel: '1234567894', birthday: '1983/07/08	', Rule: 1, Salt: '' },
-    { user_id: 4, group_id: 2, login_name: '', password: '', full_name: 'Lê Nghiêm Thủy', full_name_kana: '', email: 'thuyln@luvina.net', tel: '1234567894', birthday: '1983/07/08	', Rule: 1, Salt: '' },
-    { user_id: 5, group_id: 2, login_name: '', password: '', full_name: 'Lê Phương Anh', full_name_kana: '', email: 'anhlp@luvina.net', tel: '1234567894', birthday: '1983/07/08	', Rule: 1, Salt: '' },
-    { user_id: 6, group_id: 1, login_name: '', password: '', full_name: '', full_name_kana: '', email: '', tel: '', birthday: '', Rule: 1, Salt: '' },
-    { user_id: 7, group_id: 2, login_name: '', password: '', full_name: '', full_name_kana: '', email: '', tel: '', birthday: '', Rule: 1, Salt: '' },
-    { user_id: 8, group_id: 1, login_name: '', password: '', full_name: '', full_name_kana: '', email: '', tel: '', birthday: '', Rule: 1, Salt: '' },
-    { user_id: 9, group_id: 1, login_name: '', password: '', full_name: '', full_name_kana: '', email: '', tel: '', birthday: '', Rule: 1, Salt: '' },
-    { user_id: 10, group_id: 2, login_name: '', password: '', full_name: '', full_name_kana: '', email: '', tel: '', birthday: '', Rule: 1, Salt: '' },
-    { user_id: 11, group_id: 1, login_name: '', password: '', full_name: '', full_name_kana: '', email: '', tel: '', birthday: '', Rule: 1, Salt: '' },
-    { user_id: 12, group_id: 1, login_name: '', password: '', full_name: '', full_name_kana: '', email: '', tel: '', birthday: '', Rule: 1, Salt: '' },
-    { user_id: 13, group_id: 2, login_name: '', password: '', full_name: '', full_name_kana: '', email: '', tel: '', birthday: '', Rule: 1, Salt: '' },
+const dataObj: User[] = [
+    { userId: 1, groupId: 1, loginName: 'user 1', password: 'user 1', fullName: 'user 1', fullNameKana: 'user 1', email: 'user 1', tel: 'user 1', birthday: new Date(), rule: 1, salt: '' }
 ]
+

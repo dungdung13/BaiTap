@@ -19,7 +19,6 @@ export class ADM004 extends Component<{ navigation: NavigationScreenProp<Navigat
     }
 
     componentDidMount() {
-        console.log('did mount');
         
     }
 

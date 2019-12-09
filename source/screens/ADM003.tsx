@@ -3,16 +3,18 @@ import { Button, Picker, SafeAreaView, Text, TouchableOpacity, View } from 'reac
 import { Input } from 'react-native-elements';
 import { NavigationScreenProp, NavigationState, ScrollView } from "react-navigation";
 import { DetailUserJapan } from '../entities/DetailUserJapan';
+import { Japan } from '../entities/Japan';
 import { User } from '../entities/User';
 import HiddenView from '../ultilities/HiddenView';
 
-const defaultState: { isShowDeltail: boolean, user: User, detailUserJapan: DetailUserJapan } = {
+const defaultState: { isShowDeltail: boolean, user: User, detailUserJapan: DetailUserJapan, japan: Japan } = {
     isShowDeltail: false,
     user: { userId: 0, groupId: 0, loginName: '', password: '', fullName: '', fullNameKana: '', email: '', tel: '', birthday: '', rule: 0, salt: '' },
-    detailUserJapan: { detailUserJapanId: 0, userId: 0, codeLevel: '', startDate: '', endDate: '', total: 0 }
+    detailUserJapan: { detailUserJapanId: 0, userId: 0, codeLevel: '', startDate: '', endDate: '', total: 0 },
+    japan: { codeLevel: '0', nameLevel: '0' }
 }
 
-export class ADM003 extends Component<{ navigation: NavigationScreenProp<NavigationState> }, { isShowDeltail: boolean, user: User, detailUserJapan: DetailUserJapan }> {
+export class ADM003 extends Component<{ navigation: NavigationScreenProp<NavigationState> }, { isShowDeltail: boolean, user: User, detailUserJapan: DetailUserJapan, japan: Japan }> {
     static navigationOptions = ({ navigation }: { navigation: NavigationScreenProp<NavigationState> }) => {
         return {
             title: '会員情報編集'

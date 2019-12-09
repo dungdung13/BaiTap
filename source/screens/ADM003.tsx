@@ -24,6 +24,13 @@ export class ADM003 extends Component<{ navigation: NavigationScreenProp<Navigat
         this.state = defaultState;
     }
 
+    componentDidMount() {
+        const passedUser: User = this.props.navigation.getParam('user')
+        if (passedUser != null) {
+            this.setState({ user: JSON.parse(JSON.stringify(passedUser)) })
+        }
+    }
+
     render() {
         return (
             <SafeAreaView style={{ padding: 5 }}>

@@ -38,7 +38,7 @@ export class ADM002 extends Component<{ navigation: NavigationScreenProp<Navigat
                     data={dataObj}
                     keyExtractor={item => item.userId.toString()}
                     renderItem={({ item }) =>
-                        <TouchableOpacity onPress={() => { this.props.navigation.navigate('ADM003') }}>
+                        <TouchableOpacity onPress={() => { this.props.navigation.navigate('ADM003', { user: item }) }}>
                             <UserItem user={item} />
                         </TouchableOpacity>
                     } />
@@ -103,6 +103,6 @@ class UserItem extends Component<{ user: User }, { isShowDeltail: boolean }>{
 }
 
 const dataObj: User[] = [
-    { userId: 1, groupId: 1, loginName: 'user 1', password: 'user 1', fullName: 'user 1', fullNameKana: 'user 1', email: 'user 1', tel: 'user 1', birthday: new Date(), rule: 1, salt: '' }
+    { userId: 1, groupId: 1, loginName: 'user 1', password: 'user 1', fullName: 'user 1', fullNameKana: 'user 1', email: 'user 1', tel: 'user 1', birthday: '', rule: 1, salt: '' }
 ]
 

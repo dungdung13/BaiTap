@@ -8,7 +8,7 @@ import { User } from '../entities/User';
 import HiddenView from '../ultilities/HiddenView';
 
 const defaultState: { isShowDeltail: boolean, user: User, detailUserJapan: DetailUserJapan, japan: Japan } = {
-    isShowDeltail: false,
+    isShowDeltail: true,
     user: { userId: 0, groupId: 0, loginName: '', password: '', fullName: '', fullNameKana: '', email: '', tel: '', birthday: '', rule: 0, salt: '' },
     detailUserJapan: { detailUserJapanId: 0, userId: 0, codeLevel: '', startDate: '', endDate: '', total: 0 },
     japan: { codeLevel: '0', nameLevel: '0' }
@@ -76,7 +76,7 @@ export class ADM003 extends Component<{ navigation: NavigationScreenProp<Navigat
                                 }} />
                         </View>
                     </View>
-                    
+
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <View style={{ flex: 1 }}>
                             <Text>カタカナ氏名:</Text>
@@ -206,7 +206,9 @@ export class ADM003 extends Component<{ navigation: NavigationScreenProp<Navigat
                                 </View>
                             </View>
                         } />
-                    <Button color='rebeccapurple' title='確認' onPress={() => { this.props.navigation.navigate('ADM004', { user: this.state.user }) }} />
+                    <View style={{ marginTop: 10 }}>
+                        <Button color='rebeccapurple' title='確認' onPress={() => { this.props.navigation.navigate('ADM004', { user: this.state.user }) }} />
+                    </View>
                 </ScrollView>
             </SafeAreaView>
         );

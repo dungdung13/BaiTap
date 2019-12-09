@@ -15,7 +15,7 @@ export class ADM004 extends Component<{ navigation: NavigationScreenProp<Navigat
     constructor(props: { navigation: NavigationScreenProp<NavigationState>, focusListener: NavigationEventSubscription }) {
         super(props);
         this.state = {
-            isShowDeltail: false
+            isShowDeltail: true
         };
     }
 
@@ -46,7 +46,7 @@ export class ADM004 extends Component<{ navigation: NavigationScreenProp<Navigat
                             <UserDetail title='点数:' content={user.tel} />
                         </View>
                     } />
-
+                    <Button buttonStyle={{ backgroundColor: 'rebeccapurple', marginTop: 15 }} title='確認' onPress={() => { this.props.navigation.navigate('ADM002')}} />
                 </ScrollView>
             </SafeAreaView>
         );
@@ -60,10 +60,10 @@ class UserDetail extends Component<{ title: string, content: string }> {
     render() {
         return (
             <View style={{ flexDirection: 'row', borderWidth: 1, borderColor: 'black' }}>
-                <View style={{ flex: 1, borderEndWidth: 1, padding: 5, }}>
+                <View style={{ flex: 1, borderEndWidth: 1, padding: 10, }}>
                     <Text>{this.props.title}</Text>
                 </View>
-                <View style={{ flex: 2, padding: 5 }}>
+                <View style={{ flex: 2, padding: 10 }}>
                     <Text>{this.props.content}</Text>
                 </View>
             </View>

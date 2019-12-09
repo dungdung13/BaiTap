@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import { Icon, SearchBar } from 'react-native-elements';
 import { FlatList, NavigationScreenProp, NavigationState } from "react-navigation";
-import HiddenView from '../ultilities/HiddenView';
 import { User } from '../entities/User';
+import HiddenView from '../ultilities/HiddenView';
 
 export class ADM002 extends Component<{ navigation: NavigationScreenProp<NavigationState> }, { searchKey: string }> {
     static navigationOptions = ({ navigation }: { navigation: NavigationScreenProp<NavigationState> }) => {
@@ -103,6 +103,6 @@ class UserItem extends Component<{ user: User }, { isShowDeltail: boolean }>{
 }
 
 const dataObj: User[] = [
-    { userId: 1, groupId: 1, loginName: 'user 1', password: 'user 1', fullName: 'user 1', fullNameKana: 'user 1', email: 'user 1', tel: 'user 1', birthday: '', rule: 1, salt: '' }
+    { userId: 1, groupId: 1, loginName: 'user 1', password: 'user1', fullName: 'user 1 fullname', fullNameKana: 'user 1 fullname kana', email: 'user1@gmail.com', tel: '0123456789', birthday: '', rule: 1, salt: '' }
 ]
 

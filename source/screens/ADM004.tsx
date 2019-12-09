@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, SafeAreaView, Text, View } from 'react-native';
-import { NavigationScreenProp, NavigationState, ScrollView, NavigationEventSubscription } from "react-navigation";
+import { NavigationEventSubscription, NavigationScreenProp, NavigationState, ScrollView } from "react-navigation";
 import { User } from '../entities/User';
 import HiddenView from '../ultilities/HiddenView';
 

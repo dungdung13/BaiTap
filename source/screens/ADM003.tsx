@@ -51,7 +51,17 @@ export class ADM003 extends Component<{ navigation: NavigationScreenProp<Navigat
                         </View>
                     </View>
 
-                    <PickerElement title='* グループ:' />
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <View style={{ flex: 1 }}>
+                            <Text>* グループ:</Text>
+                        </View>
+                        <View style={{ flex: 2 }}>
+                            <Picker>
+                                <Picker.Item label="Group 1" value="1" />
+                                <Picker.Item label="Group 2" value="2" />
+                            </Picker>
+                        </View>
+                    </View>
 
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <View style={{ flex: 1 }}>
@@ -66,6 +76,7 @@ export class ADM003 extends Component<{ navigation: NavigationScreenProp<Navigat
                                 }} />
                         </View>
                     </View>
+                    
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <View style={{ flex: 1 }}>
                             <Text>カタカナ氏名:</Text>
@@ -113,7 +124,7 @@ export class ADM003 extends Component<{ navigation: NavigationScreenProp<Navigat
                             <Text>* パスワード:</Text>
                         </View>
                         <View style={{ flex: 2 }}>
-                            <Input placeholder='type here...' value={this.state.user.password}
+                            <Input secureTextEntry={true} placeholder='type here...' value={this.state.user.password}
                                 onChangeText={(text) => {
                                     const tmp = this.state.user
                                     tmp.password = text
@@ -127,7 +138,7 @@ export class ADM003 extends Component<{ navigation: NavigationScreenProp<Navigat
                             <Text>パスワード（確認）:</Text>
                         </View>
                         <View style={{ flex: 2 }}>
-                            <Input placeholder='type here...' value={this.state.user.password}
+                            <Input secureTextEntry={true} placeholder='type here...' value={this.state.user.password}
                                 onChangeText={(text) => {
                                     const tmp = this.state.user
                                     tmp.password = text
@@ -143,7 +154,17 @@ export class ADM003 extends Component<{ navigation: NavigationScreenProp<Navigat
                         isVisible={this.state.isShowDeltail}
                         child={
                             <View>
-                                <PickerElement title='資格:' />
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                    <View style={{ flex: 1 }}>
+                                        <Text>資格:</Text>
+                                    </View>
+                                    <View style={{ flex: 2 }}>
+                                        <Picker>
+                                            <Picker.Item label="Group 1" value="1" />
+                                            <Picker.Item label="Group 2" value="2" />
+                                        </Picker>
+                                    </View>
+                                </View>
                                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                     <View style={{ flex: 1 }}>
                                         <Text>資格交付日:</Text>
@@ -195,27 +216,6 @@ export class ADM003 extends Component<{ navigation: NavigationScreenProp<Navigat
                     </View>
                 </ScrollView>
             </SafeAreaView>
-        );
-    }
-}
-
-class PickerElement extends Component<{ title: string }> {
-    constructor(props: { title: string }) {
-        super(props);
-    }
-    render() {
-        return (
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <View style={{ flex: 1 }}>
-                    <Text>{this.props.title}</Text>
-                </View>
-                <View style={{ flex: 2 }}>
-                    <Picker>
-                        <Picker.Item label="1" value="1" />
-                        <Picker.Item label="2" value="2" />
-                    </Picker>
-                </View>
-            </View>
         );
     }
 }

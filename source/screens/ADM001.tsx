@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from 'react-native';
+import { Alert, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { NavigationScreenProp, NavigationState } from "react-navigation";
-import HiddenView from '../ultilities/HiddenView';
-import AsyncStorage from '@react-native-community/async-storage';
 
 export class ADM001 extends Component<{ navigation: NavigationScreenProp<NavigationState> }, { email: string, password: string }> {
     constructor(props: { navigation: NavigationScreenProp<NavigationState> }) {

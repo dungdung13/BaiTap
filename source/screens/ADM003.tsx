@@ -206,14 +206,7 @@ export class ADM003 extends Component<{ navigation: NavigationScreenProp<Navigat
                                 </View>
                             </View>
                         } />
-                    <View style={{ flexDirection: 'row', margin: 10 }}>
-                        <View style={{ flex: 1, alignItems: 'center' }}>
-                            <Button color='rebeccapurple' title='確認' onPress={() => { this.props.navigation.navigate('ADM004', { user: this.state.user }) }} />
-                        </View>
-                        <View style={{ flex: 1, alignItems: 'center' }}>
-                            <Button color='rebeccapurple' title='戻る' onPress={() => { this.props.navigation.goBack() }} />
-                        </View>
-                    </View>
+                    <Button color='rebeccapurple' title='確認' onPress={() => { this.props.navigation.navigate('ADM004', { user: this.state.user }) }} />
                 </ScrollView>
             </SafeAreaView>
         );

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Button, SafeAreaView, Text, View } from 'react-native';
+import { SafeAreaView, Text, View } from 'react-native';
 import { NavigationEventSubscription, NavigationScreenProp, NavigationState, ScrollView } from "react-navigation";
 import { User } from '../entities/User';
 import HiddenView from '../ultilities/HiddenView';
+import { Button } from 'react-native-elements';
 
 export class ADM004 extends Component<{ navigation: NavigationScreenProp<NavigationState> }, { isShowDeltail: boolean }> {
     static navigationOptions = ({ navigation }: { navigation: NavigationScreenProp<NavigationState> }) => {
@@ -19,7 +20,7 @@ export class ADM004 extends Component<{ navigation: NavigationScreenProp<Navigat
     }
 
     componentDidMount() {
-        
+
     }
 
     render() {
@@ -34,7 +35,7 @@ export class ADM004 extends Component<{ navigation: NavigationScreenProp<Navigat
                     <UserDetail title='生年月日:' content={user.birthday.toString()} />
                     <UserDetail title='メールアドレス:' content={user.email} />
                     <UserDetail title='電話番号:' content={user.tel} />
-                    <Button style={{ margin: 10 }} title='日本語能力' onPress={() => {
+                    <Button buttonStyle={{ backgroundColor: 'white', borderColor: 'black', borderWidth: 1 }} titleStyle={{ color: 'rebeccapurple' }} title='日本語能力' onPress={() => {
                         this.setState({ isShowDeltail: !this.state.isShowDeltail })
                     }} />
                     <HiddenView isVisible={this.state.isShowDeltail} child={
@@ -45,6 +46,7 @@ export class ADM004 extends Component<{ navigation: NavigationScreenProp<Navigat
                             <UserDetail title='点数:' content={user.tel} />
                         </View>
                     } />
+
                 </ScrollView>
             </SafeAreaView>
         );
@@ -57,11 +59,11 @@ class UserDetail extends Component<{ title: string, content: string }> {
     }
     render() {
         return (
-            <View style={{ flexDirection: 'row', padding: 5 }}>
-                <View style={{ flex: 1, borderWidth: 1, borderColor: 'black' }}>
+            <View style={{ flexDirection: 'row', borderWidth: 1, borderColor: 'black' }}>
+                <View style={{ flex: 1, borderEndWidth: 1, padding: 5, }}>
                     <Text>{this.props.title}</Text>
                 </View>
-                <View style={{ flex: 2, borderWidth: 1, borderColor: 'black' }}>
+                <View style={{ flex: 2, padding: 5 }}>
                     <Text>{this.props.content}</Text>
                 </View>
             </View>

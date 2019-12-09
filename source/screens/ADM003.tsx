@@ -4,13 +4,16 @@ import { Input } from 'react-native-elements';
 import { NavigationScreenProp, NavigationState, ScrollView } from "react-navigation";
 import HiddenView from '../ultilities/HiddenView';
 import { User } from '../entities/User';
+import { Japan } from '../entities/Japan';
+import { DetailUserJapan } from '../entities/DetailUserJapan';
 
-const defaultState: { isShowDeltail: boolean, user: User } = {
+const defaultState: { isShowDeltail: boolean, user: User, detailUserJapan: DetailUserJapan } = {
     isShowDeltail: false,
-    user: { userId: 0, groupId: 0, loginName: '', password: '', fullName: '', fullNameKana: '', email: '', tel: '', birthday: new Date(), rule: 0, salt: '' }
+    user: { userId: 0, groupId: 0, loginName: '', password: '', fullName: '', fullNameKana: '', email: '', tel: '', birthday: '', rule: 0, salt: '' },
+    detailUserJapan: { detailUserJapanId: 0, userId: 0, codeLevel: '', startDate: '', endDate: '', total: 0 }
 }
 
-export class ADM003 extends Component<{ navigation: NavigationScreenProp<NavigationState> }, { isShowDeltail: boolean, user: User }> {
+export class ADM003 extends Component<{ navigation: NavigationScreenProp<NavigationState> }, { isShowDeltail: boolean, user: User, detailUserJapan: DetailUserJapan }> {
     static navigationOptions = ({ navigation }: { navigation: NavigationScreenProp<NavigationState> }) => {
         return {
             title: '会員情報編集'
@@ -26,15 +29,70 @@ export class ADM003 extends Component<{ navigation: NavigationScreenProp<Navigat
         return (
             <SafeAreaView style={{ padding: 5 }}>
                 <ScrollView>
-                    <InputElement title='* アカウント名:' />
-                    <PickerElement title='* グループ:' />
-                    <InputElement title='* 氏名:' />
-                    <InputElement title='カタカナ氏名:' />
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <View style={{ flex: 1 }}>
+                            <Text>* アカウント名:</Text>
+                        </View>
+                        <View style={{ flex: 2 }}>
+                            <Input placeholder='type here...' value={this.state.user.loginName} />
+                        </View>
+                    </View>
 
-                    <InputElement title='* メールアドレス:' />
-                    <InputElement title='*電話番号:' />
-                    <InputElement title='* パスワード:' />
-                    <InputElement title='パスワード（確認）:' />
+                    <PickerElement title='* グループ:' />
+
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <View style={{ flex: 1 }}>
+                            <Text>* 氏名:</Text>
+                        </View>
+                        <View style={{ flex: 2 }}>
+                            <Input placeholder='type here...' value={this.state.user.fullName} />
+                        </View>
+                    </View>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <View style={{ flex: 1 }}>
+                            <Text>カタカナ氏名:</Text>
+                        </View>
+                        <View style={{ flex: 2 }}>
+                            <Input placeholder='type here...' value={this.state.user.fullNameKana} />
+                        </View>
+                    </View>
+
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <View style={{ flex: 1 }}>
+                            <Text>* メールアドレス:</Text>
+                        </View>
+                        <View style={{ flex: 2 }}>
+                            <Input placeholder='type here...' value={this.state.user.email} />
+                        </View>
+                    </View>
+
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <View style={{ flex: 1 }}>
+                            <Text>*電話番号:</Text>
+                        </View>
+                        <View style={{ flex: 2 }}>
+                            <Input placeholder='type here...' value={this.state.user.tel} />
+                        </View>
+                    </View>
+
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <View style={{ flex: 1 }}>
+                            <Text>* パスワード:</Text>
+                        </View>
+                        <View style={{ flex: 2 }}>
+                            <Input placeholder='type here...' value={this.state.user.password} />
+                        </View>
+                    </View>
+
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <View style={{ flex: 1 }}>
+                            <Text>パスワード（確認）:</Text>
+                        </View>
+                        <View style={{ flex: 2 }}>
+                            <Input placeholder='type here...' value={this.state.user.password} />
+                        </View>
+                    </View>
+
                     <TouchableOpacity style={{ margin: 10, alignItems: 'center' }} onPress={() => { this.setState({ isShowDeltail: !this.state.isShowDeltail }) }}>
                         <Text>日本語能力</Text>
                     </TouchableOpacity>
@@ -43,9 +101,30 @@ export class ADM003 extends Component<{ navigation: NavigationScreenProp<Navigat
                         child={
                             <View>
                                 <PickerElement title='資格:' />
-
-
-                                <InputElement title='点数:' />
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                    <View style={{ flex: 1 }}>
+                                        <Text>資格交付日:</Text>
+                                    </View>
+                                    <View style={{ flex: 2 }}>
+                                        <Input placeholder='type here...' value={this.state.detailUserJapan.startDate} />
+                                    </View>
+                                </View>
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                    <View style={{ flex: 1 }}>
+                                        <Text>失効日:</Text>
+                                    </View>
+                                    <View style={{ flex: 2 }}>
+                                        <Input placeholder='type here...' value={this.state.detailUserJapan.endDate} />
+                                    </View>
+                                </View>
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                    <View style={{ flex: 1 }}>
+                                        <Text>点数:</Text>
+                                    </View>
+                                    <View style={{ flex: 2 }}>
+                                        <Input placeholder='type here...' value={this.state.detailUserJapan.codeLevel} />
+                                    </View>
+                                </View>
                             </View>
                         } />
                     <View style={{ flexDirection: 'row' }}>
@@ -58,24 +137,6 @@ export class ADM003 extends Component<{ navigation: NavigationScreenProp<Navigat
                     </View>
                 </ScrollView>
             </SafeAreaView>
-        );
-    }
-}
-
-class InputElement extends Component<{ title: string }> {
-    constructor(props: { title: string }) {
-        super(props);
-    }
-    render() {
-        return (
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <View style={{ flex: 1 }}>
-                    <Text>{this.props.title}</Text>
-                </View>
-                <View style={{ flex: 2 }}>
-                    <Input placeholder='type here...' />
-                </View>
-            </View>
         );
     }
 }

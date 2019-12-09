@@ -7,7 +7,7 @@ export interface User {
     fullNameKana: string
     email: string
     tel: string
-    birthday: Date
+    birthday: string
     rule: number
     salt: string
 }

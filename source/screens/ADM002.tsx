@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
-import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView, Text, TouchableOpacity, View, Animated, StyleSheet, I18nManager, Alert } from 'react-native';
 import { Icon, SearchBar } from 'react-native-elements';
 import { FlatList, NavigationScreenProp, NavigationState } from "react-navigation";
 import { User } from '../entities/User';
 import HiddenView from '../ultilities/HiddenView';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
+import { RectButton } from 'react-native-gesture-handler';
+
+const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 
 export class ADM002 extends Component<{ navigation: NavigationScreenProp<NavigationState> }, { searchKey: string }> {
     static navigationOptions = ({ navigation }: { navigation: NavigationScreenProp<NavigationState> }) => {
@@ -11,7 +15,7 @@ export class ADM002 extends Component<{ navigation: NavigationScreenProp<Navigat
             title: '会員名称で会員を検索します。検索条件無しの場合は全て表示されます。',
             headerRight: () => (
                 <TouchableOpacity style={{ paddingRight: 15 }} onPress={() => { navigation.navigate('ADM003') }}>
-                    <Icon name='add' />
+                    <Icon name='add' color='rebeccapurple'/>
                 </TouchableOpacity>
             ),
         }
@@ -23,6 +27,25 @@ export class ADM002 extends Component<{ navigation: NavigationScreenProp<Navigat
             searchKey: ''
         };
     }
+
+    renderRightAction = (text: string, color: any, x: any, progress: any, action: any) => {
+        const trans = progress.interpolate({
+            inputRange: [0, 1],
+            outputRange: [x, 0],
+        });
+        const pressHandler = () => {
+            action()
+        };
+        return (
+            <Animated.View style={{ flex: 1, transform: [{ translateX: trans }] }}>
+                <RectButton
+                    style={[styles.rightAction, { backgroundColor: color }]}
+                    onPress={pressHandler}>
+                    <Text style={styles.actionText}>{text}</Text>
+                </RectButton>
+            </Animated.View>
+        );
+    };
 
     render() {
         return (
@@ -37,10 +60,21 @@ export class ADM002 extends Component<{ navigation: NavigationScreenProp<Navigat
                 <FlatList
                     data={dataObj}
                     keyExtractor={item => item.userId.toString()}
+                    ItemSeparatorComponent={() => <View style={styles.separator} />}
                     renderItem={({ item }) =>
-                        <TouchableOpacity onPress={() => { this.props.navigation.navigate('ADM003', { user: item }) }}>
+                        <Swipeable
+                            rightThreshold={40}
+                            friction={2}
+                            renderRightActions={(progress, dragX) => {
+                                return (
+                                    <View style={{ width: 144, flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row' }}>
+                                        {this.renderRightAction('Edit', '#C8C7CD', 144, progress, () => { this.props.navigation.navigate('ADM003', { user: item }) })}
+                                        {this.renderRightAction('Delete', '#dd2c00', 48, progress, () => { })}
+                                    </View>
+                                )
+                            }}>
                             <UserItem user={item} />
-                        </TouchableOpacity>
+                        </Swipeable>
                     } />
             </SafeAreaView>
         );
@@ -54,11 +88,10 @@ class UserDetail extends Component<{ title: string, content: string }>{
     render() {
 
         return (
-            <View style={{ flexDirection: 'row' }}>
+            <View style={{ flexDirection: 'row', padding: 5 }}>
                 <View style={{ flex: 1 }} />
                 <Text style={{ flex: 3 }}>{this.props.title}</Text>
                 <Text style={{ flex: 3 }}>{this.props.content}</Text>
-                <View style={{ flex: 1 }} />
             </View>
         );
     }
@@ -75,19 +108,13 @@ class UserItem extends Component<{ user: User }, { isShowDeltail: boolean }>{
         const { user } = this.props
 
         return (
-            <View style={{ padding: 10, margin: 10, borderColor: 'rebeccapurple', borderWidth: 1, borderRadius: 5 }}>
-                <View style={{ flexDirection: 'row', padding: 10 }}>
+            <TouchableOpacity style={{ padding: 10, margin: 10 }} onPress={() => { this.setState({ isShowDeltail: !this.state.isShowDeltail }) }}>
+                <View style={{ flexDirection: 'row', padding: 5 }}>
                     <View style={{ flex: 1 }}>
                         <Text>{user.userId}</Text>
                     </View>
                     <Text style={{ flex: 3 }}>{user.fullName}</Text>
                     <Text style={{ flex: 3 }}>{user.birthday.toString()}</Text>
-                    <TouchableOpacity style={{ flex: 1 }}
-                        onPress={() => {
-                            this.setState({ isShowDeltail: !this.state.isShowDeltail })
-                        }}>
-                        {this.state.isShowDeltail ? <Icon name='ios-arrow-dropup' type='ionicon' color='rebeccapurple' /> : <Icon name='ios-arrow-dropdown' type='ionicon' color='rebeccapurple' />}
-                    </TouchableOpacity>
                 </View>
                 <HiddenView
                     isVisible={this.state.isShowDeltail}
@@ -97,12 +124,35 @@ class UserItem extends Component<{ user: User }, { isShowDeltail: boolean }>{
                             <UserDetail title='telephone' content={user.tel} />
                         </View>
                     } />
-            </View>
+            </TouchableOpacity>
         );
     }
 }
 
 const dataObj: User[] = [
-    { userId: 1, groupId: 1, loginName: 'user 1', password: 'user1', fullName: 'user 1 fullname', fullNameKana: 'user 1 fullname kana', email: 'user1@gmail.com', tel: '0123456789', birthday: '', rule: 1, salt: '' }
+    { userId: 1, groupId: 1, loginName: 'user 1', password: 'user1', fullName: 'user 1 full name', fullNameKana: 'user 1 fullname kana', email: 'user1@gmail.com', tel: '0123456789', birthday: '2019/12/09', rule: 1, salt: '' },
+    { userId: 2, groupId: 1, loginName: 'user 2', password: 'user2', fullName: 'user 2 full name', fullNameKana: 'user 1 fullname kana', email: 'user1@gmail.com', tel: '0123456789', birthday: '2019/12/09', rule: 1, salt: '' }
 ]
 
+const styles = StyleSheet.create({
+    leftAction: {
+        flex: 1,
+        backgroundColor: '#497AFC',
+        justifyContent: 'center',
+    },
+    actionText: {
+        color: 'white',
+        fontSize: 16,
+        backgroundColor: 'transparent',
+        padding: 10,
+    },
+    rightAction: {
+        alignItems: 'center',
+        flex: 1,
+        justifyContent: 'center',
+    },
+    separator: {
+        backgroundColor: 'rebeccapurple',
+        height: StyleSheet.hairlineWidth,
+    },
+});

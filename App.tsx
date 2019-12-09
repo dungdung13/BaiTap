@@ -35,6 +35,10 @@ const StackNavigator = createStackNavigator({
     screen: ADM001
   },
   ADM002: {    
+    navigationOptions: {
+      headerTintColor: 'rebeccapurple',
+      headerTitleStyle: { color: 'black' }
+    },
     screen: ADM002
   },
   ADM003:{

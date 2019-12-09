@@ -17,6 +17,7 @@ import myAppReducer from './source/redux/reducers';
 import { ADM001 } from './source/screens/ADM001';
 import { ADM002 } from './source/screens/ADM002';
 import { ADM003 } from './source/screens/ADM003';
+import { ADM004 } from './source/screens/ADM004';
 
 const App = () => {
   return (
@@ -37,10 +38,10 @@ const StackNavigator = createStackNavigator({
     screen: ADM002
   },
   ADM003:{
-    navigationOptions: {
-
-    },
     screen: ADM003
+  },
+  ADM004:{
+    screen: ADM004
   }
 })
 

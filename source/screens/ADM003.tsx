@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { SafeAreaView, Text, View, Picker, Button, TouchableOpacity } from 'react-native';
+import { Button, Picker, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import { Input } from 'react-native-elements';
 import { NavigationScreenProp, NavigationState, ScrollView } from "react-navigation";
-import HiddenView from '../ultilities/HiddenView';
-import { User } from '../entities/User';
-import { Japan } from '../entities/Japan';
 import { DetailUserJapan } from '../entities/DetailUserJapan';
+import { User } from '../entities/User';
+import HiddenView from '../ultilities/HiddenView';
 
 const defaultState: { isShowDeltail: boolean, user: User, detailUserJapan: DetailUserJapan } = {
     isShowDeltail: false,
@@ -34,7 +33,12 @@ export class ADM003 extends Component<{ navigation: NavigationScreenProp<Navigat
                             <Text>* アカウント名:</Text>
                         </View>
                         <View style={{ flex: 2 }}>
-                            <Input placeholder='type here...' value={this.state.user.loginName} />
+                            <Input placeholder='type here...' value={this.state.user.loginName}
+                                onChangeText={(text) => {
+                                    const tmp = this.state.user
+                                    tmp.loginName = text
+                                    this.setState({ user: tmp })
+                                }} />
                         </View>
                     </View>
 
@@ -45,7 +49,12 @@ export class ADM003 extends Component<{ navigation: NavigationScreenProp<Navigat
                             <Text>* 氏名:</Text>
                         </View>
                         <View style={{ flex: 2 }}>
-                            <Input placeholder='type here...' value={this.state.user.fullName} />
+                            <Input placeholder='type here...' value={this.state.user.fullName}
+                                onChangeText={(text) => {
+                                    const tmp = this.state.user
+                                    tmp.fullName = text
+                                    this.setState({ user: tmp })
+                                }} />
                         </View>
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -53,7 +62,12 @@ export class ADM003 extends Component<{ navigation: NavigationScreenProp<Navigat
                             <Text>カタカナ氏名:</Text>
                         </View>
                         <View style={{ flex: 2 }}>
-                            <Input placeholder='type here...' value={this.state.user.fullNameKana} />
+                            <Input placeholder='type here...' value={this.state.user.fullNameKana}
+                                onChangeText={(text) => {
+                                    const tmp = this.state.user
+                                    tmp.fullNameKana = text
+                                    this.setState({ user: tmp })
+                                }} />
                         </View>
                     </View>
 
@@ -62,7 +76,12 @@ export class ADM003 extends Component<{ navigation: NavigationScreenProp<Navigat
                             <Text>* メールアドレス:</Text>
                         </View>
                         <View style={{ flex: 2 }}>
-                            <Input placeholder='type here...' value={this.state.user.email} />
+                            <Input placeholder='type here...' value={this.state.user.email}
+                                onChangeText={(text) => {
+                                    const tmp = this.state.user
+                                    tmp.email = text
+                                    this.setState({ user: tmp })
+                                }} />
                         </View>
                     </View>
 
@@ -71,7 +90,12 @@ export class ADM003 extends Component<{ navigation: NavigationScreenProp<Navigat
                             <Text>*電話番号:</Text>
                         </View>
                         <View style={{ flex: 2 }}>
-                            <Input placeholder='type here...' value={this.state.user.tel} />
+                            <Input placeholder='type here...' value={this.state.user.tel}
+                                onChangeText={(text) => {
+                                    const tmp = this.state.user
+                                    tmp.tel = text
+                                    this.setState({ user: tmp })
+                                }} />
                         </View>
                     </View>
 
@@ -80,7 +104,12 @@ export class ADM003 extends Component<{ navigation: NavigationScreenProp<Navigat
                             <Text>* パスワード:</Text>
                         </View>
                         <View style={{ flex: 2 }}>
-                            <Input placeholder='type here...' value={this.state.user.password} />
+                            <Input placeholder='type here...' value={this.state.user.password}
+                                onChangeText={(text) => {
+                                    const tmp = this.state.user
+                                    tmp.password = text
+                                    this.setState({ user: tmp })
+                                }} />
                         </View>
                     </View>
 
@@ -89,12 +118,17 @@ export class ADM003 extends Component<{ navigation: NavigationScreenProp<Navigat
                             <Text>パスワード（確認）:</Text>
                         </View>
                         <View style={{ flex: 2 }}>
-                            <Input placeholder='type here...' value={this.state.user.password} />
+                            <Input placeholder='type here...' value={this.state.user.password}
+                                onChangeText={(text) => {
+                                    const tmp = this.state.user
+                                    tmp.password = text
+                                    this.setState({ user: tmp })
+                                }} />
                         </View>
                     </View>
 
                     <TouchableOpacity style={{ margin: 10, alignItems: 'center' }} onPress={() => { this.setState({ isShowDeltail: !this.state.isShowDeltail }) }}>
-                        <Text>日本語能力</Text>
+                        <Text style={{ fontWeight: 'bold', color: 'rebeccapurple' }}>日本語能力</Text>
                     </TouchableOpacity>
                     <HiddenView
                         isVisible={this.state.isShowDeltail}
@@ -106,7 +140,12 @@ export class ADM003 extends Component<{ navigation: NavigationScreenProp<Navigat
                                         <Text>資格交付日:</Text>
                                     </View>
                                     <View style={{ flex: 2 }}>
-                                        <Input placeholder='type here...' value={this.state.detailUserJapan.startDate} />
+                                        <Input placeholder='type here...' value={this.state.detailUserJapan.startDate}
+                                            onChangeText={(text) => {
+                                                const tmp = this.state.detailUserJapan
+                                                tmp.startDate = text
+                                                this.setState({ detailUserJapan: tmp })
+                                            }} />
                                     </View>
                                 </View>
                                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -114,7 +153,12 @@ export class ADM003 extends Component<{ navigation: NavigationScreenProp<Navigat
                                         <Text>失効日:</Text>
                                     </View>
                                     <View style={{ flex: 2 }}>
-                                        <Input placeholder='type here...' value={this.state.detailUserJapan.endDate} />
+                                        <Input placeholder='type here...' value={this.state.detailUserJapan.endDate}
+                                            onChangeText={(text) => {
+                                                const tmp = this.state.detailUserJapan
+                                                tmp.endDate = text
+                                                this.setState({ detailUserJapan: tmp })
+                                            }} />
                                     </View>
                                 </View>
                                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -122,17 +166,22 @@ export class ADM003 extends Component<{ navigation: NavigationScreenProp<Navigat
                                         <Text>点数:</Text>
                                     </View>
                                     <View style={{ flex: 2 }}>
-                                        <Input placeholder='type here...' value={this.state.detailUserJapan.codeLevel} />
+                                        <Input placeholder='type here...' value={this.state.detailUserJapan.codeLevel}
+                                            onChangeText={(text) => {
+                                                const tmp = this.state.detailUserJapan
+                                                tmp.codeLevel = text
+                                                this.setState({ detailUserJapan: tmp })
+                                            }} />
                                     </View>
                                 </View>
                             </View>
                         } />
-                    <View style={{ flexDirection: 'row' }}>
+                    <View style={{ flexDirection: 'row', margin: 10 }}>
                         <View style={{ flex: 1, alignItems: 'center' }}>
-                            <Button title='確認' onPress={() => { this.props.navigation.navigate('ADM004', { user: this.state.user }) }} />
+                            <Button color='rebeccapurple' title='確認' onPress={() => { this.props.navigation.navigate('ADM004', { user: this.state.user }) }} />
                         </View>
                         <View style={{ flex: 1, alignItems: 'center' }}>
-                            <Button title='戻る' onPress={() => { this.props.navigation.goBack() }} />
+                            <Button color='rebeccapurple' title='戻る' onPress={() => { this.props.navigation.goBack() }} />
                         </View>
                     </View>
                 </ScrollView>

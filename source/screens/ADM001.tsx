@@ -1,48 +1,19 @@
 import React, { Component } from 'react';
-import { SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from 'react-native';
 import { NavigationScreenProp, NavigationState } from "react-navigation";
 import HiddenView from '../ultilities/HiddenView';
 import AsyncStorage from '@react-native-community/async-storage';
 
-export class ADM001 extends Component<{ navigation: NavigationScreenProp<NavigationState> }, { email: string, password: string, isError: boolean }> {
+export class ADM001 extends Component<{ navigation: NavigationScreenProp<NavigationState> }, { email: string, password: string }> {
     constructor(props: { navigation: NavigationScreenProp<NavigationState> }) {
         super(props);
         this.state = {
             email: "",
             password: "",
-            isError: false
         }
-    }
-    getData = async () => {
-        try {
-            const value = await AsyncStorage.getItem('@signed')
-            if (value !== null) {
-                console.debug(value);
-                this.props.navigation.navigate('ADM002')
-            }
-        } catch (e) {
-            console.debug(e);
-        }
-    }
-    storeData = async () => {
-        try {
-            await AsyncStorage.setItem('@signed', 'SignIn')
-        } catch (e) {
-            console.debug(e);
-        }
-    }
-    async componentWillMount() {
-        await this.getData()
     }
 
-    validate = (): boolean => {
-        if (this.state.email.trim() != "" && this.state.password.trim() != "") {
-            this.setState({ isError: false })
-            return true
-        }
-        this.setState({ isError: true })
-        return false
-    }
+    validate = (): boolean => (this.state.email.trim() != "" && this.state.password.trim() != "")
 
     render() {
         return (
@@ -69,18 +40,15 @@ export class ADM001 extends Component<{ navigation: NavigationScreenProp<Navigat
                     <View style={{ flex: 1 }}>
                         <TouchableOpacity style={styles.signInBUtton} onPress={async () => {
                             if (this.validate()) {
-                                await this.storeData()
                                 this.props.navigation.navigate('ADM002')
+                            } else {
+                                Alert.alert('Error', '「アカウント名」または「パスワード」は不正です。')
                             }
                         }}>
                             <Text style={{ color: 'white' }}>ログイン</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
-                <HiddenView isVisible={this.state.isError} child={
-                    <View>
-                        <Text>Error</Text>
-                    </View>} />
             </SafeAreaView>
         );
     }

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { SafeAreaView, Text, View, Picker, Button, TouchableOpacity } from 'react-native';
-import { Input } from 'react-native-elements';
+import { Button, SafeAreaView, Text, View } from 'react-native';
 import { NavigationScreenProp, NavigationState, ScrollView } from "react-navigation";
-import HiddenView from '../ultilities/HiddenView';
 import { User } from '../entities/User';
 
 export class ADM004 extends Component<{ navigation: NavigationScreenProp<NavigationState> }, { isShowDeltail: boolean }> {
